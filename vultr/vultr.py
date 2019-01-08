@@ -3,6 +3,7 @@ from .utils import VultrBase
 from .v1_account import VultrAccount
 from .v1_app import VultrApp
 from .v1_backup import VultrBackup
+from .v1_block import VultrBlockStore
 from .v1_dns import VultrDNS
 from .v1_firewall import VultrFirewall
 from .v1_iso import VultrISO
@@ -26,6 +27,7 @@ class Vultr(VultrBase):
         self.account = VultrAccount(api_key)
         self.app = VultrApp(api_key)
         self.backup = VultrBackup(api_key)
+        self.block = VultrBlockStore(api_key)
         self.dns = VultrDNS(api_key)
         self.firewall = VultrFirewall(api_key)
         self.iso = VultrISO(api_key)
