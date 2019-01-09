@@ -1,5 +1,5 @@
 '''Partial class to handle Vultr Account API calls'''
-from .utils import VultrBase
+from .utils import VultrBase, update_params
 
 class VultrBlockStore(VultrBase):
     '''Handles Vultr Account API calls'''
@@ -9,11 +9,21 @@ class VultrBlockStore(VultrBase):
     def attach(self, params=None):
         raise NotImplementedError()
 
-    def create(self, params=None):
-        raise NotImplementedError()
+    def create(self, dcid, size_gb, label=None, params=None):
+        params = update_params(
+            params,
+            {'DCID'    : dcid,
+             'size_gb' : size_gb,
+             'label'   : label if label else str() }
+        )
+        return self.request('/v1/block/create', params, 'POST')
 
-    def delete(self, params=None):
-        raise NotImplementedError()
+    def delete(self, subid, params=None):
+        params = update_params(
+            params,
+            {'SUBID'   : subid }
+        )
+        return self.request('/v1/block/delete', params, 'POST')
 
     def detach(self, params=None):
         raise NotImplementedError()
@@ -22,12 +32,6 @@ class VultrBlockStore(VultrBase):
         raise NotImplementedError()
 
     def list(self, params=None):
-        ''' /v1/block/list
-        GET - block
-        Retrieve information about the c
-
-        Link: https://www.vultr.com/api/#block
-        '''
         params = params if params else dict()
         return self.request('/v1/block/list', params, 'GET')
 
