@@ -28,8 +28,13 @@ class VultrBlockStore(VultrBase):
     def detach(self, params=None):
         raise NotImplementedError()
 
-    def label_set(self, params=None):
-        raise NotImplementedError()
+    def label_set(self, subid, label, params=None):
+        params = update_params(
+            params,
+            {'SUBID' : subid,
+             'label' : label }
+        )
+        return self.request('/v1/block/label_set', params, 'POST')
 
     def list(self, params=None):
         params = params if params else dict()
