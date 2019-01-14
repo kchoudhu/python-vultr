@@ -6,8 +6,13 @@ class VultrBlockStore(VultrBase):
     def __init__(self, api_key):
         VultrBase.__init__(self, api_key)
 
-    def attach(self, params=None):
-        raise NotImplementedError()
+    def attach(self, subid, attach_to_subid, params=None):
+        params = update_params(
+            params,
+            {'SUBID'           : subid,
+             'attach_to_SUBID' : attach_to_subid }
+        )
+        return self.request('/v1/block/attach', params, 'POST')
 
     def create(self, dcid, size_gb, label=None, params=None):
         params = update_params(
@@ -25,8 +30,12 @@ class VultrBlockStore(VultrBase):
         )
         return self.request('/v1/block/delete', params, 'POST')
 
-    def detach(self, params=None):
-        raise NotImplementedError()
+    def detach(self, subid, params=None):
+        params = update_params(
+            params,
+            {'SUBID'   : subid }
+        )
+        return self.request('/v1/block/detach', params, 'POST')
 
     def label_set(self, subid, label, params=None):
         params = update_params(
