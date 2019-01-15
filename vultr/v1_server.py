@@ -142,6 +142,26 @@ class VultrServer(VultrBase):
         params = update_params(params, {'SUBID': subid})
         return self.request('/v1/server/os_change_list', params, 'GET')
 
+    def private_network_disable(self, subid, networkid, params=None):
+        params = update_params(params, {
+            'SUBID' : subid,
+            'NETWORKID' : networkid,
+        })
+        return self.request('/v1/server/private_network_disable', params, 'POST')
+
+    def private_network_enable(self, subid, networkid, params=None):
+        params = update_params(params, {
+            'SUBID' : subid,
+            'NETWORKID' : networkid,
+        })
+        return self.request('/v1/server/private_network_enable', params, 'POST')
+
+    def private_network_list(self, subid, params=None):
+        params = update_params(params, {
+            'SUBID' : subid,
+        })
+        return self.request('/v1/server/private_networks', params, 'GET')
+
     def reboot(self, subid, params=None):
         ''' /v1/server/reboot
         POST - account
