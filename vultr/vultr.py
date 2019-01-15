@@ -8,6 +8,7 @@ from .v1_dns import VultrDNS
 from .v1_firewall import VultrFirewall
 from .v1_iso import VultrISO
 from .v1_os import VultrOS
+from .v1_network import VultrNetwork
 from .v1_plans import VultrPlans
 from .v1_regions import VultrRegions
 from .v1_reservedip import VultrReservedIP
@@ -33,6 +34,7 @@ class Vultr(VultrBase):
         self.iso = VultrISO(api_key)
         # pylint: disable=invalid-name
         # OS is the Vultr API namespace name
+        self.network = VultrNetwork(api_key)
         self.os = VultrOS(api_key)
         self.plans = VultrPlans(api_key)
         self.regions = VultrRegions(api_key)
