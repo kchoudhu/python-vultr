@@ -21,7 +21,7 @@ class VultrServer(VultrBase):
         params = update_params(params, {'SUBID': subid})
         return self.request('/v1/server/bandwidth', params, 'GET')
 
-    def create(self, dcid, vpsplanid, osid, snapshotid=None, label=None, params=None):
+    def create(self, dcid, vpsplanid, osid, sshid=None, snapshotid=None, label=None, params=None):
         ''' /v1/server/create
         POST - account
         Create a new virtual machine. You will start being billed for this
@@ -35,6 +35,7 @@ class VultrServer(VultrBase):
             'DCID': dcid,
             'VPSPLANID': vpsplanid,
             'OSID': osid,
+            'SSHKEYID' : sshid if sshid else str(),
             'SNAPSHOTID' : snapshotid if snapshotid else str(),
             'label' : label if label else str()
         })
